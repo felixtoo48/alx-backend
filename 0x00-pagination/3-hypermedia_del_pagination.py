@@ -57,7 +57,7 @@ class Server:
         indexed_data = self.indexed_dataset()
         if index is None:
             index = 0
-        assert index >= 0 and index < len(indexed_data),
+        assert index >= 0 and index < len(indexed_data)
 
         current_page_data = []
         for i in range(index, index + page_size):
