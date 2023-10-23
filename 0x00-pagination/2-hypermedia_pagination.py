@@ -56,3 +56,37 @@ class Server:
 
         # Return the appropriate page of the dataset
         return dataset[start_index:end_index]
+
+    def get_hyper(self, page: int = 1, page_size: int = 10):
+        """ Hypermedia pergination and return dictionary with
+        key:value pairs
+
+        Args:
+            page (int): The 1-indexed page number.
+            page_size (int): The number of items per page.
+
+        Returns:
+            dict: A dictionary containing hypermedia pagination information.
+
+        """
+        assert isinstance(page, int) and isinstance(page_size, int)
+        assert page > 0 and page_size > 0, "Both page and page_size > 0."
+
+        data = self.get_page(page, page_size)
+
+        total_items = len(self.dataset())
+        total_pages = (total_items + page_size - 1) // page_size
+
+        next_page = page + 1 if page < total_pages else None
+        prev_page = page - 1 if page > 1 else None
+
+        hyper_data = {
+            "page_size": len(data),
+            "page": page,
+            "data": data,
+            "next_page": next_page,
+            "prev_page": prev_page,
+            "total_pages": total_pages
+        }
+
+        return hyper_data
