@@ -23,9 +23,9 @@ class LRUCache(BaseCaching):
             self.cache_data.move_to_end(key)
 
         elif len(self.cache_data) >= self.MAX_ITEMS:
-            discard = self.cache_data.popitem(last=False)
-            del self.cache_data[discard]
-            print(f"DISCARD: {discard}")
+            discard_key = next(iter(self.cache_data))
+            discard_value = self.cache_data.pop(discard_key)
+            print(f"DISCARD: {discard_key}")
 
         if key is not None and item is not None:
             self.cache_data[key] = item
