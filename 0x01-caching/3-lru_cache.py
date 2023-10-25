@@ -34,11 +34,11 @@ class LRUCache(BaseCaching):
     def get(self, key):
         """ returns the value in the dictionary 'self.cache_data'
         linked to 'key' """
-        if key is None:
+        if not key or key not in self.cache_data:
             return None
 
         # Remove from any position in the queue and add to the back
-        # self.order.remove(key)
-        # self.order.append(key)
+        self.order.remove(key)
+        self.order.append(key)
 
         return self.cache_data.get(key)
