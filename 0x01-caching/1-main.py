@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" 1-main """
+""" 1-main .."""
 FIFOCache = __import__('1-fifo_cache').FIFOCache
 
 my_cache = FIFOCache()
