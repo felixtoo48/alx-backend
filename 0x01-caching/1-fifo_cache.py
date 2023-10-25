@@ -19,17 +19,13 @@ class FIFOCache(BaseCaching):
         then remove the first in cache
         """
         if len(self.cache_data) >= self.MAX_ITEMS:
-            oldest_key = self.order[0]
-            print(f"DISCARD: {self.order[0]}")
-            self.remove_oldest(oldest_key)
+            discard = self.order.pop(0)
+            del self.cache_data[discard]
+            print(f"DISCARD: {discard}")
 
         if key is not None and item is not None:
-            self.cache_data[key] = item
             self.order.append(key)
-
-    def remove_oldest(self, key):
-        self.order.remove(key)  # Remove the key from the order list
-        del self.cache_data[key]
+            self.cache_data[key] = item
 
     def get(self, key):
         """ returns the value in the dictionary 'self.cache_data'
