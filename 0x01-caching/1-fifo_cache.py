@@ -10,15 +10,7 @@ class FIFOCache(BaseCaching):
     def __init__(self):
         """ initializing the class and parent class """
         super().__init__()
-
-    def remove_oldest(self):
-        """ Remove the oldest item from the cache """
-        if self.cache_data:
-            # Get the first key (oldest item) in the cache_data dictionary
-            oldest_key = next(iter(self.cache_data))
-
-            # Remove the oldest item from the cache_data dictionary
-            del self.cache_data[oldest_key]
+        self.order = []
 
     def put(self, key, item):
         """ assigns to the dictionary self.cache_data
@@ -27,11 +19,17 @@ class FIFOCache(BaseCaching):
         then remove the first in cache
         """
         if len(self.cache_data) >= self.MAX_ITEMS:
-            self.remove_oldest()
-            print(f"DISCARD: {key}")
+            oldest_key = self.order[0]
+            print(f"DISCARD: {self.order[0]}")
+            self.remove_oldest(oldest_key)
 
         if key is not None and item is not None:
             self.cache_data[key] = item
+            self.order.append(key)
+
+    def remove_oldest(self, key):
+        self.order.remove(key)  # Remove the key from the order list
+        del self.cache_data[key]
 
     def get(self, key):
         """ returns the value in the dictionary 'self.cache_data'
