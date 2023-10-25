@@ -11,7 +11,6 @@ class LRUCache(BaseCaching):
     def __init__(self):
         """ initializing the class and parent class """
         super().__init__()
-        self.order = []
         self.cache_data = OrderedDict()
 
     def put(self, key, item):
@@ -29,7 +28,6 @@ class LRUCache(BaseCaching):
             print(f"DISCARD: {discard}")
 
         if key is not None and item is not None:
-            self.order.append(key)
             self.cache_data[key] = item
 
     def get(self, key):
