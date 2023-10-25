@@ -5,20 +5,12 @@
 BaseCaching = __import__('base_caching').BaseCaching
 
 
-class FIFOCache(BaseCaching):
+class LIFOCache(BaseCaching):
     """ FIFO caching system class definition """
     def __init__(self):
         """ initializing the class and parent class """
         super().__init__()
-
-    def remove_oldest(self):
-        """ Remove the oldest item from the cache """
-        if self.cache_data:
-            # Get the first key (oldest item) in the cache_data dictionary
-            oldest_key = next(iter(self.cache_data))
-
-            # Remove the oldest item from the cache_data dictionary
-            del self.cache_data[oldest_key]
+        self.order = []
 
     def put(self, key, item):
         """ assigns to the dictionary self.cache_data
@@ -27,10 +19,12 @@ class FIFOCache(BaseCaching):
         then remove the first in cache
         """
         if len(self.cache_data) >= self.MAX_ITEMS:
-            self.remove_oldest()
-            print(f"DISCARD: {key}")
+            discard = self.order.pop()
+            del self.cache_data[discard]
+            print(f"DISCARD: {discard}")
 
         if key is not None and item is not None:
+            self.order.append(key)
             self.cache_data[key] = item
 
     def get(self, key):
