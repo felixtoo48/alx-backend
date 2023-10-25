@@ -16,7 +16,7 @@ class LIFOCache(BaseCaching):
         """ assigns to the dictionary self.cache_data
         the item value for the key 'key'
         if number of items is higher than 'MAX_ITEMS'
-        then remove the first in cache
+        then remove the last item added in cache
         """
         if len(self.cache_data) >= self.MAX_ITEMS:
             discard = self.order.pop()
