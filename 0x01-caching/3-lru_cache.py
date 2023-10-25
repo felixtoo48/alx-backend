@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-""" FIFO cathing method/ caching system"""
+""" LRUCache cathing method/ caching system"""
 
 
 BaseCaching = __import__('base_caching').BaseCaching
 
 
-class LIFOCache(BaseCaching):
-    """ FIFO caching system class definition """
+class LRUCache(BaseCaching):
+    """ LRUCache caching system class definition """
     def __init__(self):
         """ initializing the class and parent class """
         super().__init__()
