@@ -12,4 +12,4 @@ app = Flask(__name__)
 
 def index():
     """ index defin returning render template"""
-    return render_template('templates/0-index.html')
+    return render_template('0-index.html')
