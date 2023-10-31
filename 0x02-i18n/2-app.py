@@ -4,11 +4,6 @@
 from flask import Flask, render_template, request
 from flask_babel import Babel
 
-app = Flask(__name__)
-
-
-babel = Babel(app)
-
 
 class Config(object):
     """ configuring available languages"""
@@ -16,15 +11,18 @@ class Config(object):
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
-    @babel.localeselector
-    def get_locale():
-        """ defining accepted langiages"""
-        return request.accept_languages.best_match(app.config['LANGUAGES'])
 
-
+app = Flask(__name__)
 # Set the app's config to use the Config class
 app.config.from_object(Config)
 app.url_map.strict_slashes = False
+babel = Babel(app)
+
+
+@babel.localeselector
+def get_locale():
+    """ defining accepted langiages"""
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
