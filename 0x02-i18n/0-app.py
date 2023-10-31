@@ -2,6 +2,8 @@
 """ Flask app """
 
 from flask import Flask, render_template
+app.jinja_env.autoescape = True
+
 
 app = Flask(__name__)
 
