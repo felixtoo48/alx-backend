@@ -24,6 +24,7 @@ class Config(object):
 
 # Set the app's config to use the Config class
 app.config.from_object(Config)
+app.url_map.strict_slashes = False
 
 
 @app.route('/')
