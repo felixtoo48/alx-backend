@@ -21,8 +21,10 @@ class Config(object):
         """ defining accepted langiages"""
         return request.accept_languages.best_match(app.config['LANGUAGES'])
 
+
 # Set the app's config to use the Config class
 app.config.from_object(Config)
+
 
 @app.route('/')
 def index():
