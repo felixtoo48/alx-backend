@@ -21,7 +21,7 @@ babel = Babel(app)
 def get_locale():
     """ defining accepted languages"""
     # Check if locale parameter is present in the request's query parameters
-    requested_locale = request.args.get('locale')
+    requested_locale = request.args.get('locale', '')
 
     # Check if the requested locale is in the list of supported languages
     if requested_locale and requested_locale in app.config['LANGUAGES']:
