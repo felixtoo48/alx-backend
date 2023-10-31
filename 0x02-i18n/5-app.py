@@ -25,7 +25,7 @@ users = {
 }
 
 
-# @babel.localeselector
+@babel.localeselector
 def get_locale():
     """ defining accepted languages"""
     # Check if locale parameter is present in the request's query parameters
@@ -40,7 +40,7 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-babel.init_app(app, locale_selector=get_locale)
+# babel.init_app(app, locale_selector=get_locale)
 
 
 # Set the app's config to use the Config class
