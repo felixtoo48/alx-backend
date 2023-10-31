@@ -2,9 +2,10 @@
 """ Flask app """
 
 from flask import Flask, render_template, request, g
-from flask_babel import Babel
+from flask_babel import Babel, get_locale, gettext, format_datetime
 from pytz import timezone, UnknownTimeZoneError
 from datetime import datetime
+import pytz
 
 app = Flask(__name__)
 
@@ -92,7 +93,14 @@ timezone_selector=get_timezone)
 @app.route('/')
 def index():
     """ index definition returning render template"""
-    g.time = format_datetime()
+     # Get the current time in the inferred time zone
+    current_time = datetime.now(pytz.timezone(get_timezone()))
+
+    # Format the current time using the appropriate translation
+    formatted_time = format_datetime(current_time, format="medium")
+
+    # Set the time variable in the global context
+    g.time = formatted_time
     return render_template('index.html')
 
 
