@@ -28,7 +28,7 @@ app.config.from_object(Config)
 
 @app.route('/')
 def index():
-    """ index defin returning render template"""
+    """ index definition returning render template"""
     return render_template('3-index.html')
 
 
