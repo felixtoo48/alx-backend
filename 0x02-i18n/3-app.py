@@ -15,10 +15,12 @@ class Config(object):
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
+
 @babel.localeselector
 def get_locale():
     """ defining accepted languages"""
     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
 
 # Set the app's config to use the Config class
 app.config.from_object(Config)
@@ -29,6 +31,6 @@ def index():
     """ index defin returning render template"""
     return render_template('3-index.html')
 
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-
