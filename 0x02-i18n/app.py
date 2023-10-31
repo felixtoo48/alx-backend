@@ -4,6 +4,7 @@
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
 from pytz import timezone, UnknownTimeZoneError
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -26,7 +27,7 @@ users = {
 }
 
 
-@babel.localeselector
+# @babel.localeselector
 def get_locale():
     """ defining accepted languages"""
     # Check if locale parameter is present in the request's query parameters
@@ -50,8 +51,6 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-# babel.init_app(app, locale_selector=get_locale)
-
 
 # Set the app's config to use the Config class
 app.config.from_object(Config)
@@ -72,7 +71,7 @@ def before_request():
     g.user = get_user()
 
 
-@babel.timezoneselector
+# @babel.timezoneselector
 def get_timezone():
     """Get user timezone
     """
@@ -87,9 +86,13 @@ def get_timezone():
         return app.config['BABEL_DEFAULT_TIMEZONE']
 
 
+babel.init_app(app, locale_selector=get_locale,
+timezone_selector=get_timezone)
+
 @app.route('/')
-def login():
+def index():
     """ index definition returning render template"""
+    g.time = format_datetime()
     return render_template('index.html')
 
 
